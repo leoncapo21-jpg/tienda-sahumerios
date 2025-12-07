@@ -3,118 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esencias & Luz | Tienda Holística</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-</head>
-<body>
+    <title>Armonía & Bienestar</title>
+    <style>
+        /* --- RESET Y ESTILOS BASE --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    <div class="buddha-bg"></div>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+            line-height: 1.6;
+            color: #333;
+            background-color: #fdfbf7; /* Tono crema suave */
+        }
 
-    <nav class="navbar">
-        <div class="logo">Esencias & Luz</div>
-        <ul class="nav-links">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#catalogo">Catálogo</a></li>
-            <li><a href="#nosotros">Nosotros</a></li>
-            <li><a href="#info">Cómo Comprar</a></li>
-        </ul>
-        <div class="cart-icon" onclick="toggleCart()">
-            <i class="fas fa-shopping-bag"></i>
-            <span id="cart-count">0</span>
-        </div>
-    </nav>
+        /* --- HEADER / HERO --- */
+        header {
+            background-color: #5D5C61; /* Gris oscuro elegante */
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
 
-    <div id="cart-sidebar" class="cart-sidebar">
-        <div class="cart-header">
-            <h2>Tu Pedido</h2>
-            <button onclick="toggleCart()" class="close-btn">&times;</button>
-        </div>
-        <div id="cart-items" class="cart-items">
-            <p class="empty-msg">Tu carrito está vacío.</p>
-        </div>
-        <div class="cart-footer">
-            <div class="total">Total: <span id="cart-total">$0</span></div>
-            <button onclick="finalizarCompra()" class="btn-checkout">
-                <i class="fab fa-whatsapp"></i> Finalizar Pedido
-            </button>
-        </div>
-    </div>
-    <div id="overlay" class="overlay" onclick="toggleCart()"></div>
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Georgia', serif; /* Toque elegante para el título */
+        }
 
-    <header id="inicio" class="hero">
-        <div class="hero-content">
-            <h1>Armonía & Bienestar</h1>
-            <p>Eleva tu vibración con nuestros aromas sagrados.</p>
-            <a href="#catalogo" class="btn-cta">Ver Colección</a>
-        </div>
-    </header>
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
 
-    <section id="catalogo" class="section-padding">
-        <h2 class="section-title">Catálogo Exclusivo</h2>
-        <div class="divider"></div>
-        
-        <div id="grid-productos" class="grid">
-            <div class="loader">
-                <i class="fas fa-spinner fa-spin"></i> Cargando esencias...
-            </div>
-        </div>
-    </section>
+        header a {
+            color: #b1a296; /* Color dorado suave */
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #b1a296;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
 
-    <section id="nosotros" class="section-padding bg-alt">
-        <div class="info-container">
-            <h2 class="section-title">Nuestra Esencia</h2>
-            <div class="divider"></div>
-            <p class="text-block">
-                Inspirados en la sabiduría oriental, seleccionamos cada aroma para traer paz mental y equilibrio espiritual a tu hogar. 
-                Más que sahumerios, ofrecemos herramientas para tu bienestar.
-            </p>
-            <div class="features">
-                <div class="feature-item">
-                    <i class="fas fa-om"></i>
-                    <span>Espiritualidad</span>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-seedling"></i>
-                    <span>Natural</span>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-hand-sparkles"></i>
-                    <span>Artesanal</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        header a:hover {
+            background-color: #b1a296;
+            color: #fff;
+        }
 
-    <section id="info" class="section-padding">
-        <h2 class="section-title">Cómo Comprar</h2>
-        <div class="divider"></div>
-        <div class="steps-grid">
-            <div class="step">
-                <div class="step-num">1</div>
-                <h3>Agrega</h3>
-                <p>Suma los productos que desees al carrito de compras.</p>
-            </div>
-            <div class="step">
-                <div class="step-num">2</div>
-                <h3>Envía</h3>
-                <p>Ve al carrito y toca "Finalizar Pedido" para enviarnos la lista por WhatsApp.</p>
-            </div>
-            <div class="step">
-                <div class="step-num">3</div>
-                <h3>Disfruta</h3>
-                <p>Coordinamos el pago y envío para que recibas tu pedido.</p>
-            </div>
-        </div>
-    </section>
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
 
-    <footer>
-        <p>© 2025 Esencias & Luz - Namasté 🙏</p>
-    </footer>
+        /* --- SECCIONES --- */
+        section {
+            margin-bottom: 4rem;
+        }
 
-    <script src="script.js"></script>
-</body>
-</html>
+        h2 {
+            font-size: 2rem;
+            color: #373737;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e0d8c3;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* --- CATALOGO --- */
+        .catalog-msg {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            color: #666;
+        }
+
+        /* --- NUESTRA ESENCIA (Iconos) --- */
+        .features {
+            display: flex; /* Flexbox para ponerlos uno al lado del otro */
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .feature-item {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- CÓMO COMPRAR (Pasos) --- */
+        .steps-grid {
+            display: grid; /* Grid para las columnas */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .step-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #f0ebe0; /* Número gigante de fondo */
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            z-index: 0;
+        }
+
+        .step-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: bold;
