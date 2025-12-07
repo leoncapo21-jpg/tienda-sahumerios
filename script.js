@@ -1,126 +1,67 @@
-// LINK DEL EXCEL
+// TU LINK DEL EXCEL (CSV)
 const URL_GOOGLE_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCnsEBRlb2IX9k_mbHaLdR7j_G2oiA-eT4JcCCVgN1jnjekPiK8XRAb2DFn7c56N12zY4-Lav-e-vs/pub?output=csv";
 
-// TU NÚMERO (Usamos el que pediste: 1162302758)
+// TU NÚMERO
 const TELEFONO_VENTAS = "5491162302758"; 
 
-// VARIABLES DEL CARRITO
-let carrito = [];
 const grid = document.getElementById('grid-productos');
 
-// CARGAR PRODUCTOS DESDE EXCEL
 Papa.parse(URL_GOOGLE_SHEET, {
     download: true,
     header: true,
     complete: function(results) {
         const data = results.data;
-        grid.innerHTML = ""; 
+        grid.innerHTML = ""; // Limpiar loader
 
         if (data.length === 0) {
-            grid.innerHTML = "<p style='text-align:center; width:100%'>Cargando...</p>";
+            grid.innerHTML = "<p style='text-align:center; width:100%'>No hay productos disponibles aún.</p>";
             return;
         }
 
+        // Variable para controlar el retraso de la animación (efecto cascada)
+        let delay = 0;
+
         data.forEach(producto => {
             if (producto.Nombre && producto.Precio) {
-                // Limpiar precio de símbolos
-                let precioNumerico = parseInt(producto.Precio.replace(/[^0-9]/g, ''));
-                if(isNaN(precioNumerico)) precioNumerico = 0;
-
+                
+                // --- PREPARAR DATOS ---
                 const imagen = (producto.Imagen && producto.Imagen.startsWith('http')) 
                     ? producto.Imagen 
-                    : 'https://via.placeholder.com/400x500?text=Sin+Imagen';
+                    : 'https://via.placeholder.com/400x500?text=Sin+Imagen'; // Imagen más alta
 
-                // Crear Tarjeta
+                const precioTexto = producto.Precio.includes('$') ? producto.Precio : `$${producto.Precio}`;
+                
+                // MENSAJE PERSONALIZADO
+                // "Hola quiero el producto [Nombre]"
+                const mensajeWa = `Hola! Quiero el producto ${producto.Nombre}`;
+                const linkWa = `https://wa.me/${TELEFONO_VENTAS}?text=${encodeURIComponent(mensajeWa)}`;
+
+                // --- CREAR TARJETA ---
                 const card = document.createElement('div');
                 card.className = 'card';
+                card.style.animationDelay = `${delay}s`; // Cada una aparece un poquito después de la otra
+
                 card.innerHTML = `
-                    <img src="${imagen}" alt="${producto.Nombre}">
+                    <div class="card-img-container">
+                        <img src="${imagen}" alt="${producto.Nombre}">
+                    </div>
                     <div class="info">
                         <h3>${producto.Nombre}</h3>
                         <p class="desc">${producto.Descripcion || ''}</p>
-                        <span class="precio">$${precioNumerico}</span>
-                        <button class="btn-add" onclick="agregarAlCarrito('${producto.Nombre}', ${precioNumerico})">
-                            Agregar al Carrito
-                        </button>
+                        <span class="precio">${precioTexto}</span>
+                        <a href="${linkWa}" class="btn-comprar" target="_blank">
+                            <i class="fab fa-whatsapp"></i> COMPRAR
+                        </a>
                     </div>
                 `;
+                
                 grid.appendChild(card);
+                delay += 0.1; // Aumentar retraso para la siguiente tarjeta
             }
         });
+    },
+    error: function(err) {
+        console.error(err);
+        grid.innerHTML = "<p>Error al cargar el catálogo.</p>";
     }
 });
-
-// --- FUNCIONES DEL CARRITO ---
-
-function agregarAlCarrito(nombre, precio) {
-    carrito.push({ nombre, precio });
-    actualizarCarritoUI();
-    toggleCart(); // Abrir carrito para mostrar que se agregó
-}
-
-function eliminarDelCarrito(index) {
-    carrito.splice(index, 1);
-    actualizarCarritoUI();
-}
-
-function actualizarCarritoUI() {
-    const cartItems = document.getElementById('cart-items');
-    const cartCount = document.getElementById('cart-count');
-    const cartTotal = document.getElementById('cart-total');
-    
-    // Actualizar contador
-    cartCount.innerText = carrito.length;
-
-    // Limpiar lista visual
-    cartItems.innerHTML = "";
-    let total = 0;
-
-    if (carrito.length === 0) {
-        cartItems.innerHTML = "<p class='empty-msg'>Tu carrito está vacío.</p>";
-    } else {
-        carrito.forEach((item, index) => {
-            total += item.precio;
-            const itemElement = document.createElement('div');
-            itemElement.className = 'cart-item';
-            itemElement.innerHTML = `
-                <div class="item-info">
-                    <h4>${item.nombre}</h4>
-                    <span>$${item.precio}</span>
-                </div>
-                <span class="remove-item" onclick="eliminarDelCarrito(${index})">&times;</span>
-            `;
-            cartItems.appendChild(itemElement);
-        });
-    }
-
-    cartTotal.innerText = `$${total}`;
-}
-
-// ABRIR / CERRAR SIDEBAR
-function toggleCart() {
-    document.getElementById('cart-sidebar').classList.toggle('open');
-    document.getElementById('overlay').classList.toggle('active');
-}
-
-// FINALIZAR COMPRA (ENVIAR A WHATSAPP)
-function finalizarCompra() {
-    if (carrito.length === 0) {
-        alert("Agrega productos primero.");
-        return;
-    }
-
-    let mensaje = "Hola! Quiero realizar el siguiente pedido:\n\n";
-    let total = 0;
-
-    carrito.forEach(item => {
-        mensaje += `- ${item.nombre} ($${item.precio})\n`;
-        total += item.precio;
-    });
-
-    mensaje += `\n*Total a pagar: $${total}*`;
-    
-    // Abrir WhatsApp con el mensaje
-    const link = `https://wa.me/${TELEFONO_VENTAS}?text=${encodeURIComponent(mensaje)}`;
-    window.open(link, '_blank');
-}

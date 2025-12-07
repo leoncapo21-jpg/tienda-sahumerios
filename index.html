@@ -3,146 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Armonía & Bienestar</title>
-    <style>
-        /* --- RESET Y ESTILOS BASE --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <title>Catálogo Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
-            line-height: 1.6;
-            color: #333;
-            background-color: #fdfbf7; /* Tono crema suave */
-        }
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Esencias & Luz</h1>
+            <p>Aromas que transforman espacios</p>
+        </div>
+    </header>
 
-        /* --- HEADER / HERO --- */
-        header {
-            background-color: #5D5C61; /* Gris oscuro elegante */
-            color: white;
-            text-align: center;
-            padding: 4rem 1rem;
-        }
+    <div class="container">
+        <main id="grid-productos" class="grid">
+            <div class="loader">
+                <i class="fas fa-circle-notch fa-spin"></i> Cargando catálogo...
+            </div>
+        </main>
+    </div>
 
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            font-family: 'Georgia', serif; /* Toque elegante para el título */
-        }
+    <a href="https://wa.me/5491162302758" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 1.5rem;
-        }
-
-        header a {
-            color: #b1a296; /* Color dorado suave */
-            text-decoration: none;
-            font-weight: bold;
-            border: 1px solid #b1a296;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        header a:hover {
-            background-color: #b1a296;
-            color: #fff;
-        }
-
-        /* --- CONTENEDOR PRINCIPAL --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* --- SECCIONES --- */
-        section {
-            margin-bottom: 4rem;
-        }
-
-        h2 {
-            font-size: 2rem;
-            color: #373737;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #e0d8c3;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        /* --- CATALOGO --- */
-        .catalog-msg {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            color: #666;
-        }
-
-        /* --- NUESTRA ESENCIA (Iconos) --- */
-        .features {
-            display: flex; /* Flexbox para ponerlos uno al lado del otro */
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .feature-item {
-            flex: 1;
-            min-width: 200px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        /* --- CÓMO COMPRAR (Pasos) --- */
-        .steps-grid {
-            display: grid; /* Grid para las columnas */
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-
-        .step-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .step-number {
-            font-size: 4rem;
-            font-weight: bold;
-            color: #f0ebe0; /* Número gigante de fondo */
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            z-index: 0;
-        }
-
-        .step-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .step-title {
-            font-size: 1.25rem;
-            font-weight: bold;
+    <script src="script.js"></script>
+</body>
+</html>
