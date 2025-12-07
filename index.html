@@ -3,42 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aromas Sagrados | Tienda Online</title>
+    <title>Catálogo Online</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
 
-    <section class="hero">
-        <div class="overlay"></div>
+    <header class="hero">
         <div class="hero-content">
-            <h1 class="fade-in">Esencias & Luz</h1>
-            <p class="fade-in-delay">Sahumerios artesanales y energía para tu hogar.</p>
-            <a href="#catalogo" class="btn-hero fade-in-delay-2">Ver Colección</a>
+            <h1>Esencias & Luz</h1>
+            <p>Aromas que transforman espacios</p>
         </div>
-    </section>
+    </header>
 
-    <main id="catalogo">
-        <div class="section-title">
-            <h2>Catálogo Exclusivo</h2>
-            <div class="divider"></div>
-        </div>
+    <div class="container">
+        <main id="grid-productos" class="grid">
+            <div class="loader">
+                <i class="fas fa-circle-notch fa-spin"></i> Cargando catálogo...
+            </div>
+        </main>
+    </div>
 
-        <div id="grid-productos" class="grid-productos">
-            <div class="loading">Cargando aromas...</div>
-        </div>
-    </main>
-
-    <footer>
-        <p>© 2024 Esencias & Luz - Pedidos al WhatsApp</p>
-    </footer>
-
-    <a href="https://wa.me/5491162302758?text=Hola,%20quisiera%20consultar%20por%20sus%20productos" class="whatsapp-float" target="_blank">
-        <span class="material-icons-outlined">whatsapp</span>
+    <a href="https://wa.me/5491162302758" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
     <script src="script.js"></script>

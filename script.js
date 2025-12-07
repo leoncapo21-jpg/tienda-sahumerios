@@ -1,54 +1,67 @@
-// TU LINK
+// TU LINK DEL EXCEL (CSV)
 const URL_GOOGLE_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQCnsEBRlb2IX9k_mbHaLdR7j_G2oiA-eT4JcCCVgN1jnjekPiK8XRAb2DFn7c56N12zY4-Lav-e-vs/pub?output=csv";
 
-const grid = document.getElementById('grid-productos');
+// TU NÚMERO
+const TELEFONO_VENTAS = "5491162302758"; 
 
-grid.innerHTML = "<h3>🔄 Intentando conectar con Google...</h3>";
+const grid = document.getElementById('grid-productos');
 
 Papa.parse(URL_GOOGLE_SHEET, {
     download: true,
     header: true,
     complete: function(results) {
-        console.log("Datos recibidos:", results.data); // Muestra datos en consola (F12)
         const data = results.data;
-        grid.innerHTML = ""; 
+        grid.innerHTML = ""; // Limpiar loader
 
         if (data.length === 0) {
-            grid.innerHTML = "<h3>⚠️ El Excel parece vacío.</h3>";
+            grid.innerHTML = "<p style='text-align:center; width:100%'>No hay productos disponibles aún.</p>";
             return;
         }
 
-        let productosEncontrados = 0;
+        // Variable para controlar el retraso de la animación (efecto cascada)
+        let delay = 0;
 
         data.forEach(producto => {
-            // Imprimir cada fila para ver si hay errores de escritura
-            // Busca columnas que se llamen "Nombre" (Mayúscula)
-            if (producto.Nombre) {
-                productosEncontrados++;
+            if (producto.Nombre && producto.Precio) {
+                
+                // --- PREPARAR DATOS ---
+                const imagen = (producto.Imagen && producto.Imagen.startsWith('http')) 
+                    ? producto.Imagen 
+                    : 'https://via.placeholder.com/400x500?text=Sin+Imagen'; // Imagen más alta
+
+                const precioTexto = producto.Precio.includes('$') ? producto.Precio : `$${producto.Precio}`;
+                
+                // MENSAJE PERSONALIZADO
+                // "Hola quiero el producto [Nombre]"
+                const mensajeWa = `Hola! Quiero el producto ${producto.Nombre}`;
+                const linkWa = `https://wa.me/${TELEFONO_VENTAS}?text=${encodeURIComponent(mensajeWa)}`;
+
+                // --- CREAR TARJETA ---
                 const card = document.createElement('div');
                 card.className = 'card';
-                const img = (producto.Imagen && producto.Imagen.startsWith('http')) ? producto.Imagen : 'https://via.placeholder.com/300?text=Sin+Imagen';
-                const precio = producto.Precio || "Consultar";
+                card.style.animationDelay = `${delay}s`; // Cada una aparece un poquito después de la otra
 
                 card.innerHTML = `
-                    <img src="${img}" alt="${producto.Nombre}">
+                    <div class="card-img-container">
+                        <img src="${imagen}" alt="${producto.Nombre}">
+                    </div>
                     <div class="info">
                         <h3>${producto.Nombre}</h3>
-                        <p>${producto.Descripcion || ''}</p>
-                        <span class="precio">$${precio}</span>
-                        <a href="#" class="btn">COMPRAR</a>
+                        <p class="desc">${producto.Descripcion || ''}</p>
+                        <span class="precio">${precioTexto}</span>
+                        <a href="${linkWa}" class="btn-comprar" target="_blank">
+                            <i class="fab fa-whatsapp"></i> COMPRAR
+                        </a>
                     </div>
                 `;
+                
                 grid.appendChild(card);
+                delay += 0.1; // Aumentar retraso para la siguiente tarjeta
             }
         });
-
-        if (productosEncontrados === 0) {
-            grid.innerHTML = "<h3>❌ Conecté al Excel, pero no encontré la columna 'Nombre'. <br>Revisa que la Fila 1 tenga la N mayúscula.</h3>";
-        }
     },
     error: function(err) {
         console.error(err);
-        grid.innerHTML = `<h3>❌ ERROR DE CONEXIÓN:</h3><p>${JSON.stringify(err)}</p><p>Asegúrate de entrar por <b>localhost:3000</b></p>`;
+        grid.innerHTML = "<p>Error al cargar el catálogo.</p>";
     }
 });

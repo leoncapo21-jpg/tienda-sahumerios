@@ -1,42 +1,137 @@
 :root {
-    --bg-color: #fdfbf7;
-    --text-dark: #2c2c2c;
-    --accent: #b08d55; /* Dorado Viejo */
-    --card-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    --primary: #1e1e1e;       /* Negro suave */
+    --accent: #d4af37;        /* Dorado elegante */
+    --bg: #f8f9fa;            /* Gris muy claro */
+    --card-bg: #ffffff;
+    --whatsapp: #25D366;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lato', sans-serif; }
-body { background-color: var(--bg-color); color: var(--text-dark); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg);
+    color: var(--primary);
+}
+
+/* HERO SECTION */
 .hero {
-    height: 90vh;
-    background: url('https://images.unsplash.com/photo-1602168431602-9b5971488c9d?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-    position: relative; display: flex; align-items: center; justify-content: center; text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1602168431602-9b5971488c9d?auto=format&fit=crop&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 4rem 1rem;
+    margin-bottom: 2rem;
 }
-.overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); }
-.hero-content { position: relative; z-index: 2; color: white; }
-h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; margin-bottom: 1rem; animation: fadeIn 1s ease forwards; }
-.btn-hero { padding: 15px 30px; border: 2px solid white; color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; display: inline-block; margin-top: 20px;}
-.btn-hero:hover { background: white; color: black; }
 
-main { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
-.section-title { text-align: center; margin-bottom: 3rem; }
-.divider { height: 3px; width: 50px; background: var(--accent); margin: 10px auto; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 0.5rem; letter-spacing: 1px; }
+.hero p { font-weight: 300; font-size: 1.1rem; opacity: 0.9; }
 
-.grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2.5rem; }
+/* LAYOUT */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 4rem; }
 
-.card { background: white; border-radius: 8px; overflow: hidden; box-shadow: var(--card-shadow); transition: transform 0.3s; }
-.card:hover { transform: translateY(-10px); }
-.card-img { width: 100%; height: 300px; object-fit: cover; }
-.card-info { padding: 1.5rem; text-align: center; }
-.product-name { font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 0.5rem; }
-.product-price { color: var(--accent); font-weight: bold; font-size: 1.3rem; margin-bottom: 1rem; display: block; }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Tarjetas más anchas */
+    gap: 2.5rem;
+}
 
-.btn-buy { background: #111; color: white; padding: 10px; display: block; text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s; }
-.btn-buy:hover { background: var(--accent); }
+/* TARJETAS */
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    animation: fadeInUp 0.6s ease forwards; /* Animación de entrada */
+    opacity: 0;
+}
 
-.whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); text-decoration: none; z-index: 100; transition: 0.3s; }
-.whatsapp-float:hover { transform: scale(1.1); }
-.loading { grid-column: 1/-1; text-align: center; font-size: 1.5rem; color: #999; }
+/* Efecto al pasar el mouse: sube y brilla */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+/* IMAGEN GRANDE */
+.card-img-container {
+    height: 350px; /* MÁS ALTO para ver mejor la foto */
+    overflow: hidden;
+    position: relative;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cubre todo sin deformarse */
+    transition: transform 0.5s ease;
+}
+
+.card:hover img { transform: scale(1.05); }
+
+/* INFO */
+.info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; text-align: center; }
+
+.card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+}
+
+.desc {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    flex-grow: 1; /* Empuja el precio abajo */
+}
+
+.precio {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+}
+
+/* BOTÓN DE COMPRA */
+.btn-comprar {
+    display: inline-block;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.3s ease, transform 0.2s;
+    width: 100%;
+}
+
+.btn-comprar:hover {
+    background-color: var(--whatsapp); /* Se pone verde al tocar */
+    transform: scale(1.02);
+}
+
+/* BOTÓN FLOTANTE */
+.wa-float {
+    position: fixed; bottom: 30px; right: 30px;
+    background: var(--whatsapp); color: white;
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s; z-index: 100;
+}
+.wa-float:hover { transform: scale(1.1) rotate(10deg); }
+
+.loader { text-align: center; grid-column: 1/-1; padding: 2rem; font-size: 1.2rem; color: #999; }
+
+/* ANIMACIONES */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
