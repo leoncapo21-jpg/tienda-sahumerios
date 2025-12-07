@@ -14,7 +14,7 @@ Papa.parse(URL_GOOGLE_SHEET, {
         grid.innerHTML = ""; // Limpiar loader
 
         if (data.length === 0) {
-            grid.innerHTML = "<p style='text-align:center; width:100%'>No hay productos disponibles aún.</p>";
+            grid.innerHTML = "<p style='text-align:center; width:100%; font-size:1.2rem;'>No hay productos disponibles aún.</p>";
             return;
         }
 
@@ -27,19 +27,18 @@ Papa.parse(URL_GOOGLE_SHEET, {
                 // --- PREPARAR DATOS ---
                 const imagen = (producto.Imagen && producto.Imagen.startsWith('http')) 
                     ? producto.Imagen 
-                    : 'https://via.placeholder.com/400x500?text=Sin+Imagen'; // Imagen más alta
+                    : 'https://via.placeholder.com/400x500?text=Sin+Imagen';
 
                 const precioTexto = producto.Precio.includes('$') ? producto.Precio : `$${producto.Precio}`;
                 
                 // MENSAJE PERSONALIZADO
-                // "Hola quiero el producto [Nombre]"
-                const mensajeWa = `Hola! Quiero el producto ${producto.Nombre}`;
+                const mensajeWa = `Hola! 👋 Quiero el producto *${producto.Nombre}* que vi en el catálogo.`;
                 const linkWa = `https://wa.me/${TELEFONO_VENTAS}?text=${encodeURIComponent(mensajeWa)}`;
 
                 // --- CREAR TARJETA ---
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.style.animationDelay = `${delay}s`; // Cada una aparece un poquito después de la otra
+                card.style.animationDelay = `${delay}s`;
 
                 card.innerHTML = `
                     <div class="card-img-container">
@@ -56,7 +55,7 @@ Papa.parse(URL_GOOGLE_SHEET, {
                 `;
                 
                 grid.appendChild(card);
-                delay += 0.1; // Aumentar retraso para la siguiente tarjeta
+                delay += 0.15; // Retraso para la animación
             }
         });
     },
