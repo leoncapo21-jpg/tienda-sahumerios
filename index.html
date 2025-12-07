@@ -3,32 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Online</title>
+    <title>Esencias & Luz | Tienda Holística</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
 
-    <header class="hero">
+    <div class="buddha-bg"></div>
+
+    <nav class="navbar">
+        <div class="logo">Esencias & Luz</div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#info">Cómo Comprar</a></li>
+        </ul>
+        <div class="cart-icon" onclick="toggleCart()">
+            <i class="fas fa-shopping-bag"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Tu Pedido</h2>
+            <button onclick="toggleCart()" class="close-btn">&times;</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <p class="empty-msg">Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="total">Total: <span id="cart-total">$0</span></div>
+            <button onclick="finalizarCompra()" class="btn-checkout">
+                <i class="fab fa-whatsapp"></i> Finalizar Pedido
+            </button>
+        </div>
+    </div>
+    <div id="overlay" class="overlay" onclick="toggleCart()"></div>
+
+    <header id="inicio" class="hero">
         <div class="hero-content">
-            <h1>Esencias & Luz</h1>
-            <p>Aromas que transforman espacios</p>
+            <h1>Armonía & Bienestar</h1>
+            <p>Eleva tu vibración con nuestros aromas sagrados.</p>
+            <a href="#catalogo" class="btn-cta">Ver Colección</a>
         </div>
     </header>
 
-    <div class="container">
-        <main id="grid-productos" class="grid">
+    <section id="catalogo" class="section-padding">
+        <h2 class="section-title">Catálogo Exclusivo</h2>
+        <div class="divider"></div>
+        
+        <div id="grid-productos" class="grid">
             <div class="loader">
-                <i class="fas fa-circle-notch fa-spin"></i> Cargando catálogo...
+                <i class="fas fa-spinner fa-spin"></i> Cargando esencias...
             </div>
-        </main>
-    </div>
+        </div>
+    </section>
 
-    <a href="https://wa.me/5491162302758" class="wa-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <section id="nosotros" class="section-padding bg-alt">
+        <div class="info-container">
+            <h2 class="section-title">Nuestra Esencia</h2>
+            <div class="divider"></div>
+            <p class="text-block">
+                Inspirados en la sabiduría oriental, seleccionamos cada aroma para traer paz mental y equilibrio espiritual a tu hogar. 
+                Más que sahumerios, ofrecemos herramientas para tu bienestar.
+            </p>
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-om"></i>
+                    <span>Espiritualidad</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-seedling"></i>
+                    <span>Natural</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-hand-sparkles"></i>
+                    <span>Artesanal</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="info" class="section-padding">
+        <h2 class="section-title">Cómo Comprar</h2>
+        <div class="divider"></div>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Agrega</h3>
+                <p>Suma los productos que desees al carrito de compras.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Envía</h3>
+                <p>Ve al carrito y toca "Finalizar Pedido" para enviarnos la lista por WhatsApp.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Disfruta</h3>
+                <p>Coordinamos el pago y envío para que recibas tu pedido.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Esencias & Luz - Namasté 🙏</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
